@@ -7,12 +7,12 @@
 * [DNS](#dns)
 * [Mail](#mail)
   * [Update Time](#update-time)
-  * [<strong>Certificates</strong>](#certificates)
-  * [<strong>Install Required Packages</strong>](#install-required-packages)
+  * [Certificates](#certificates)
+  * [Install Required Packages](#install-required-packages)
   * [User Account](#user-account)
 * [Postfix](#postfix)
-  * [<strong>/etc/postfix/main.cf</strong>](#etcpostfixmaincf)
-  * [<strong>/etc/postfix/master.cf</strong>](#etcpostfixmastercf)
+  * [/etc/postfix/main.cf](#etcpostfixmaincf)
+  * [/etc/postfix/master.cf](#etcpostfixmastercf)
   * [/etc/postfix/maps](#etcpostfixmaps)
   * [maps/outgoing_header_checks](#mapsoutgoing_header_checks)
   * [maps/sender_access](#mapssender_access)
@@ -20,13 +20,13 @@
   * [maps/sender_login](#mapssender_login)
   * [maps/virtual_alias_hash](#mapsvirtual_alias_hash)
   * [maps/virtual_alias_regexp](#mapsvirtual_alias_regexp)
-* [<strong>Dovecot</strong>](#dovecot)
-  * [<strong>/etc/dovecot/dovecot.conf</strong>](#etcdovecotdovecotconf)
-  * [<strong>/etc/dovecot/conf.d/10-mail.conf</strong>](#etcdovecotconfd10-mailconf)
-  * [<strong>/etc/dovecot/conf.d/10-auth.conf</strong>](#etcdovecotconfd10-authconf)
-  * [<strong>/etc/dovecot/conf.d/10-master.conf</strong>](#etcdovecotconfd10-masterconf)
-  * [<strong>/etc/dovecot/conf.d/10-ssl.conf</strong>](#etcdovecotconfd10-sslconf)
-* [<strong>Postgrey</strong>](#postgrey)
+* [Dovecot](#dovecot)
+  * [/etc/dovecot/dovecot.conf](#etcdovecotdovecotconf)
+  * [/etc/dovecot/conf.d/10-mail.conf](#etcdovecotconfd10-mailconf)
+  * [/etc/dovecot/conf.d/10-auth.conf](#etcdovecotconfd10-authconf)
+  * [/etc/dovecot/conf.d/10-master.conf](#etcdovecotconfd10-masterconf)
+  * [/etc/dovecot/conf.d/10-ssl.conf](#etcdovecotconfd10-sslconf)
+* [Postgrey](#postgrey)
   * [/etc/default/postgrey](#etcdefaultpostgrey)
 * [Rspamd](#rspamd)
   * [local.d](#locald)
@@ -201,7 +201,7 @@ nasata: ta
 
 ## Postfix
 
-### **`/etc/postfix/main.cf`**
+### `/etc/postfix/main.cf`
 
 > `${ID}` 改成自己的，其他不用，注意 restrictions 的先後順序會影響
 > 
@@ -329,7 +329,7 @@ policyd-spf    unix  -       n       n       -       0       spawn
   -o smtpd_tls_security_level=none
 ```
 
-### **`/etc/postfix/**maps`
+### `/etc/postfix/maps`
 
 > 是 hash 檔的記得要用 `postmap` 產生 `.db` 檔
 > 
@@ -411,9 +411,9 @@ sudo postmap /etc/postfix/maps/virtual_alias_hash
 
 ---
 
-## **Dovecot**
+## Dovecot
 
-### **`/etc/dovecot/dovecot.conf`**
+### `/etc/dovecot/dovecot.conf`
 
 > 確定 `!include conf.d/*.conf` 沒備注解掉
 > 
@@ -423,7 +423,7 @@ sudo postmap /etc/postfix/maps/virtual_alias_hash
 + listen = *, ::
 ```
 
-### **`/etc/dovecot/conf.d/10-mail.conf`**
+### `/etc/dovecot/conf.d/10-mail.conf`
 
 > 設定 Mail 路徑，要跟 Poster 使用相同格式
 > 
@@ -433,7 +433,7 @@ sudo postmap /etc/postfix/maps/virtual_alias_hash
 + mail_location = maildir:~/Maildir
 ```
 
-### **`/etc/dovecot/conf.d/10-auth.conf`**
+### `/etc/dovecot/conf.d/10-auth.conf`
 
 > 認證管理，確定 `disable_plaintext_auth = yes` 沒被註解
 > 
@@ -446,7 +446,7 @@ sudo postmap /etc/postfix/maps/virtual_alias_hash
 + auth_username_format = %Lu
 ```
 
-### **`/etc/dovecot/conf.d/10-master.conf`**
+### `/etc/dovecot/conf.d/10-master.conf`
 
 ```
 service auth {
@@ -481,7 +481,7 @@ service imap-login {
 }
 ```
 
-### **`/etc/dovecot/conf.d/10-ssl.conf`**
+### `/etc/dovecot/conf.d/10-ssl.conf`
 
 ```
 - ssl_cert = </etc/dovecot/private/dovecot.pem
@@ -492,7 +492,7 @@ service imap-login {
 
 ---
 
-## **Postgrey**
+## Postgrey
 
 > 記得把 `ta@ta.nasa` 加到 `/etc/postgrey/whitelist_clients` 底下
 > 
